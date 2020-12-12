@@ -12,3 +12,6 @@ wx.send.url=https://sc.ftqq.com/xxxx.send
 
 - app.key/app.secret 是京东联盟访问接口的凭证
 - wx.send.url 是在 server 酱上申请的给微信推送消息的 URL
+
+## 关于我
+编程的本质就是解决生活中的问题，如果你也是程序开发相关的，可以一起学习交流，我的公众号是 ：郭儿的跋涉，不定期更新，欢迎关注。
