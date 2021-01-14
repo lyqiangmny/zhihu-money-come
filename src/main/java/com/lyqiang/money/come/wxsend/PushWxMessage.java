@@ -28,7 +28,7 @@ public class PushWxMessage {
         Map<String, Object> paramMap = new HashMap<>(2);
         paramMap.put("text", title);
         paramMap.put("desp", content);
-        String s = HttpUtil.get(url, paramMap);
+        String s = HttpUtil.post(url, paramMap);
         log.info("调用 server 酱发送消息，返回：{}", s);
     }
 

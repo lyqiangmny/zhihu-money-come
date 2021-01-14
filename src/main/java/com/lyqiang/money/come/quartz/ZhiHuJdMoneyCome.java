@@ -5,6 +5,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.lyqiang.money.come.util.Constant;
+import com.lyqiang.money.come.util.JdOrderStateEnum;
 import com.lyqiang.money.come.util.JdSignUtil;
 import com.lyqiang.money.come.util.PropertiesReader;
 import com.lyqiang.money.come.wxsend.PushWxMessage;
@@ -55,7 +56,7 @@ public class ZhiHuJdMoneyCome {
     }
 
     private void packageContentAndSendWx(JSONArray dataArr) {
-        String title = "老板出单了啊,金额:";
+        String title = "老板出单了啊，共" + dataArr.size() + "件，金额：";
         BigDecimal totalMoney = BigDecimal.ZERO;
         StringBuilder contentBuilder = new StringBuilder();
         for (int i = 0; i < dataArr.size(); i++) {
@@ -63,8 +64,13 @@ public class ZhiHuJdMoneyCome {
             BigDecimal estimateFee = data.getBigDecimal("estimateFee");
             totalMoney = totalMoney.add(estimateFee);
             String skuName = data.getString("skuName");
-            log.info("新出单子了，商品名称：{}, 金额：{}", skuName, estimateFee);
-            contentBuilder.append("#### 商品名称： ").append(skuName).append(", #### 金额：").append(estimateFee);
+            int validCode = data.getIntValue("validCode");
+            String orderStateName = JdOrderStateEnum.getNameByCode(validCode);
+            log.info("新出单子了，商品名称：{}, 金额：{}，状态：{}", skuName, estimateFee, orderStateName);
+            contentBuilder.append("- 商品名称： ").append(skuName)
+                    .append("，金额：").append(estimateFee)
+                    .append("，状态：").append(orderStateName)
+                    .append("\n\n");
         }
         pushWxMessage.sendWxMessage(title + totalMoney.toString(), contentBuilder.toString());
     }
