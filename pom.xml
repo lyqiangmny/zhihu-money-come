@@ -10,7 +10,7 @@
     </parent>
     <groupId>com.lyqiang</groupId>
     <artifactId>money</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.2-SNAPSHOT</version>
     <name>money</name>
     <description>Demo project for Spring Boot</description>
 
